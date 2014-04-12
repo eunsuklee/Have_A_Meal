@@ -2,10 +2,11 @@
 /**
  * Module dependencies.
  */
+require('./db/mongodb');
 require('./model/user');
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
+var login = require('./routes/login');
 var http = require('http');
 var path = require('path');
 var app = express();
@@ -28,9 +29,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
-app.get('/googleOAuth', user.googleOAuth);
-app.get('/auth/google/callback', user.googleOAuthCallback);
+app.get('/googleOAuth', login.googleOAuth);
+app.get('/auth/google/callback', login.googleOAuthCallback);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
