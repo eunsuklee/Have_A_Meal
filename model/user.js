@@ -4,10 +4,9 @@ var schema = {
     user : function () {
         return mongoose.Schema({
             name: String,
-            email: String,
-            accessTocken: String
+            email: String
         });
     }
-};
+}
 
 mongoose.model('User', schema.user());
