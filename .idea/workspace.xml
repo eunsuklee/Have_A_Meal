@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc9531ac-404a-45e8-8df3-c93fd19e384c" name="Default" comment="contents crud add!&#10;">
+    <list default="true" id="bc9531ac-404a-45e8-8df3-c93fd19e384c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="have_a_meal.iws" />
@@ -341,7 +341,11 @@
       <created>1398084242563</created>
       <updated>1398084242563</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="contents crud add!&#10;">
+      <created>1398084313092</created>
+      <updated>1398084313092</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
