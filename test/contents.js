@@ -3,13 +3,13 @@
  */
 var request = require('request');
 var assert = require('assert');
-var querystring = require('querystring');
+var queryString = require('querystring');
 var TEST_URL = "http://localhost:3000/"
 describe('Contents', function() {
     describe('CRUD', function() {
         it.skip('insert success', function(done) {
 ;           var param = {form: {
-                             userId : 'anneprogramer@gmail.com',
+                            userId : 'anneprogramer@gmail.com',
                             isPublicity : true,
                             recruitStartDateTime : new Date(2014,04,19,14,00),
                             recruitEndDateTime : new Date(2014,04,21,15,00),
@@ -44,9 +44,10 @@ describe('Contents', function() {
                 gpsY : 20,
                 meetingDateTime : new Date(2014,05,23,16,00),
                 count : 20,
-                fee : 3000
+                fee : 3000,
+                modifiyDateTime : new Date()
             }};
-            request.put(TEST_URL + "contents/535223267d2d5d6411255859", param, function (error, rsponse, body) {
+            request.put(TEST_URL + "contents/5352356fe5b52be018ecbcd4", param, function (error, rsponse, body) {
                 if (error) {
                     return console.error( error);
                 }
@@ -74,19 +75,93 @@ describe('Contents', function() {
             }
 
             var result = JSON.parse(body);
+            console.log(result);
             assert.equal('535228e03f8f3aa00ff3b240', result._id);
             done();
         });
     });
 
-    it('search success', function(done) {
+    it.skip('search success', function(done) {
         var param = {userId : 'anneprogramer@gmail.com'};
-        request.get(TEST_URL + "contents?" + querystring.stringify(param), function (error, rsponse, body) {
+        request.get(TEST_URL + "contents?" + queryString.stringify(param), function (error, rsponse, body) {
             if (error) {
                 return console.error( error);
             }
 
             var result = JSON.parse(body);
+            console.log(result);
+            assert.equal(2, result.length);
+            done();
+        });
+    });
+});
+
+describe('ReplyContents', function() {
+    describe('CRUD', function() {
+        it.skip('insert success', function(done) {
+            var param = {form: {
+                userId : 'anneprogramer@gmail.com',
+                contents : "댓글 등록 내용 테스트",
+                parentContentsId : '5352356fe5b52be018ecbcd4'
+            }};
+            request.post(TEST_URL + "replyContents", param, function (error, rsponse, body) {
+                if (error) {
+                    return console.error( error);
+                }
+                var result = JSON.parse(body).result;
+                assert.equal("success", result);
+                done();
+            });
+        });
+
+        it.skip('update success', function(done) {
+            var param = {form: {
+                contents : "댓글 수정 내용 테스트",
+                modifiyDateTime : new Date()
+            }};
+            request.put(TEST_URL + "replyContents/535b5517e42710501b1ff44c", param, function (error, rsponse, body) {
+                if (error) {
+                    return console.error( error);
+                }
+                var result = JSON.parse(body).result;
+                assert.equal("success", result);
+                done();
+            });
+        });
+    });
+    it.skip('delete success', function(done) {
+        request.del(TEST_URL + "replyContents/535b5517e42710501b1ff44c", function (error, rsponse, body) {
+            if (error) {
+                return console.error( error);
+            }
+            var result = JSON.parse(body).result;
+            assert.equal("success", result);
+            done();
+        });
+    });
+
+    it.skip('searchOne success', function(done) {
+        request.get(TEST_URL + "replyContents/535b560fe42710501b1ff44d", function (error, rsponse, body) {
+            if (error) {
+                return console.error( error);
+            }
+
+            var result = JSON.parse(body);
+            console.log(result);
+            assert.equal('535b560fe42710501b1ff44d', result._id);
+            done();
+        });
+    });
+
+    it('search success', function(done) {
+        var param = {parentContentsId : '5352356fe5b52be018ecbcd4'};
+        request.get(TEST_URL + "replyContents?" + queryString.stringify(param), function (error, rsponse, body) {
+            if (error) {
+                return console.error( error);
+            }
+
+            var result = JSON.parse(body);
+            console.log(result);
             assert.equal(2, result.length);
             done();
         });
