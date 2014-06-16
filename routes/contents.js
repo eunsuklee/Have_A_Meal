@@ -28,13 +28,33 @@ exports.updateContent = function(req, res){
 
 exports.searchContents = function(req, res){
     var param =  req.query;
-    Contents.find(param, function(error, contents){
-        if (error) {
-            console.error(error);
-            res.send({result : 'fail'});
-        }
-        res.send(contents);
-    });
+    var options  = {};
+
+    if (param.orderName != null) {
+        var orderName = param.orderName;
+        var order = param.order;
+        var orders = {}
+        orders[orderName] = order;
+        options['sort'] = orders ;
+        delete req.query.order;
+        delete req.query.orderName;
+    }
+
+    if (param.limit != null) {
+        options['limit'] = param.limit ;
+        delete req.query.limit;
+    }
+    Contents.find(
+        param,
+        null,
+        options,
+        function(error, contents){
+            if (error) {
+                console.error(error);
+                res.send({result : 'fail'});
+            }
+            res.send(contents);
+        });
 };
 
 exports.searchContent = function(req, res){

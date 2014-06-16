@@ -11,14 +11,14 @@ describe('Contents', function() {
 ;           var param = {form: {
                             userId : 'anneprogramer@gmail.com',
                             isPublicity : true,
-                            recruitStartDateTime : new Date(2014,04,19,14,00),
-                            recruitEndDateTime : new Date(2014,04,21,15,00),
+                            recruitStartDateTime : new Date(2014,05,19,14,00),
+                            recruitEndDateTime : new Date(2014,05,21,15,00),
                             foodType : 1,
-                            subject : "글 등록 테스트",
-                            contents : "글 등록 내용 테스트",
+                            subject : "글 등록 테스트1",
+                            contents : "글 등록 내용 테스트2",
                             gpsX : 128,
                             gpsY : 46,
-                            meetingDateTime : new Date(2014,04,23,16,00),
+                            meetingDateTime : new Date(2014,05,23,16,00),
                             count : 10,
                             fee : 10000
                          }};
@@ -81,8 +81,8 @@ describe('Contents', function() {
         });
     });
 
-    it.skip('search success', function(done) {
-        var param = {userId : 'anneprogramer@gmail.com'};
+    it('search success', function(done) {
+        var param = {userId : 'anneprogramer@gmail.com', orderName : 'registerDateTime', order : 'desc', limit : '2' };
         request.get(TEST_URL + "contents?" + queryString.stringify(param), function (error, rsponse, body) {
             if (error) {
                 return console.error( error);
@@ -91,6 +91,19 @@ describe('Contents', function() {
             var result = JSON.parse(body);
             console.log(result);
             assert.equal(2, result.length);
+            done();
+        });
+    });
+    it.skip('best search success', function(done) {
+        var param = {userId : 'anneprogramer@gmail.com'};
+        request.get(TEST_URL + "contents?" + queryString.stringify(param), function (error, rsponse, body) {
+            if (error) {
+                return console.error( error);
+            }
+
+            var result = JSON.parse(body);
+            console.log(result);
+            assert.equal(3, result.length);
             done();
         });
     });
@@ -153,7 +166,7 @@ describe('ReplyContents', function() {
         });
     });
 
-    it('search success', function(done) {
+    it.skip('search success', function(done) {
         var param = {parentContentsId : '5352356fe5b52be018ecbcd4'};
         request.get(TEST_URL + "replyContents?" + queryString.stringify(param), function (error, rsponse, body) {
             if (error) {
