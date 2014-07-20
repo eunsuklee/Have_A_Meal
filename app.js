@@ -36,6 +36,7 @@ app.post('/contents', contents.insertContent);
 app.put('/contents/:id', contents.updateContent);
 app.del('/contents/:id', contents.deleteContent);
 app.get('/contents', contents.searchContents);
+app.get('/contents/:perPage/:page', contents.searchContentsByPerPage);
 app.get('/contents/:id', contents.searchContent);
 
 app.post('/replyContents', contents.insertReplyContent);

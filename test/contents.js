@@ -81,7 +81,7 @@ describe('Contents', function() {
         });
     });
 
-    it('search success', function(done) {
+    it.skip('search success', function(done) {
         var param = {userId : 'anneprogramer@gmail.com', orderName : 'registerDateTime', order : 'desc', limit : '2' };
         request.get(TEST_URL + "contents?" + queryString.stringify(param), function (error, rsponse, body) {
             if (error) {
@@ -91,6 +91,19 @@ describe('Contents', function() {
             var result = JSON.parse(body);
             console.log(result);
             assert.equal(2, result.length);
+            done();
+        });
+    });
+    it('search by PerPage success', function(done) {
+        var param = {orderName : 'registerDateTime', order : 'desc' };
+        request.get(TEST_URL + "contents/10/1?" + queryString.stringify(param), function (error, rsponse, body) {
+            if (error) {
+                return console.error( error);
+            }
+
+            var result = JSON.parse(body);
+            console.log(result);
+            assert.equal(3, result.length);
             done();
         });
     });

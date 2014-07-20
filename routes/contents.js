@@ -57,6 +57,37 @@ exports.searchContents = function(req, res){
         });
 };
 
+exports.searchContentsByPerPage = function(req, res){
+    var page = req.params.page;
+    var perPage = req.params.perPage;
+    var param =  req.query;
+    var options  = {};
+
+    if (param.orderName != null) {
+        var orderName = param.orderName;
+        var order = param.order;
+        var orders = {}
+        orders[orderName] = order;
+        options['sort'] = orders ;
+        delete req.query.order;
+        delete req.query.orderName;
+    }
+    options['skip'] = page > 0 ? ((page-1)*perPage) : 0;
+    options['limit'] = perPage;
+
+    Contents.find(
+        param,
+        null,
+        options,
+        function(error, contents){
+            if (error) {
+                console.error(error);
+                res.send({result : 'fail'});
+            }
+            res.send(contents);
+        });
+};
+
 exports.searchContent = function(req, res){
     var _id = req.params.id;
     Contents.findById(_id, function(error, cotent){
