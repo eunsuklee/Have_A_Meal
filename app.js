@@ -18,6 +18,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.bodyParser({keepExtentions : true, uploadDir: __dirname + '/app/uploads'}));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
@@ -44,6 +45,7 @@ app.put('/replyContents/:id', contents.updateReplyContent);
 app.del('/replyContents/:id', contents.deleteReplyContent);
 app.get('/replyContents', contents.searchReplyContents);
 app.get('/replyContents/:id', contents.searchReplyContent);
+app.post('/fileUpload', contents.fileUpload);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

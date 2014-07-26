@@ -4,6 +4,7 @@
 var request = require('request');
 var assert = require('assert');
 var queryString = require('querystring');
+var fs = require('fs');
 var TEST_URL = "http://localhost:3000/"
 describe('Contents', function() {
     describe('CRUD', function() {
@@ -56,6 +57,18 @@ describe('Contents', function() {
                 done();
             });
         });
+        it('fileUpload success', function() {
+
+            var r = request.post(TEST_URL + 'fileUpload', function optionalCallback (err, httpResponse, body) {
+                if (err) {
+                    return console.error('upload failed:', err);
+                }
+                console.log('Upload successful!  Server responded with:', body);
+            })
+            var form = r.form();
+            form.append('uploadFile', fs.createReadStream('c:/ari.png')) ;
+
+        });
     });
     it.skip('delete success', function(done) {
         request.del(TEST_URL + "contents/535223267d2d5d6411255859", function (error, rsponse, body) {
@@ -94,7 +107,7 @@ describe('Contents', function() {
             done();
         });
     });
-    it('search by PerPage success', function(done) {
+    it.skip('search by PerPage success', function(done) {
         var param = {orderName : 'registerDateTime', order : 'desc' };
         request.get(TEST_URL + "contents/10/1?" + queryString.stringify(param), function (error, rsponse, body) {
             if (error) {

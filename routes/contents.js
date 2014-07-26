@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Contents = mongoose.model('Contents');
 var ReplyContents = mongoose.model('ReplyContents');
+var fs = require('fs');
 
 exports.insertContent = function(req, res){
 
@@ -166,3 +167,9 @@ exports.deleteReplyContent = function(req, res){
         res.send({result : 'success'});
     })
 };
+
+exports.fileUpload = function(req, res) {
+    console.log(req.files.uploadFile);
+    res.send({result : 'success'});
+
+}
